@@ -5,6 +5,7 @@ import { useAuth0 } from "./react-auth0-spa"
 import history from "./utils/history"
 import Profile from "./components/Profile"
 import PrivateRoute from "./components/PrivateRoute"
+import ExternalApi from "./services/ExternalApi"
 
 const App = () => {
 
@@ -23,6 +24,7 @@ const App = () => {
         		<Switch>
           			<Route path="/" exact />
           			<PrivateRoute path="/profile" component={Profile} />
+					<PrivateRoute path="/external-api" component={ExternalApi} />
         		</Switch>
       		</Router>
     	</div>

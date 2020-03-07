@@ -3,9 +3,10 @@ import ReactDOM from "react-dom"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
 import { Auth0Provider } from "./react-auth0-spa"
-import config from "./auth_config.json"
+import { config } from 'dotenv'
 import history from "./utils/history"
 
+config()
 // A function that routes the user to the right place
 // after login
 const onRedirectCallback = appState => {
@@ -14,9 +15,10 @@ const onRedirectCallback = appState => {
 
 ReactDOM.render(
 	<Auth0Provider
-    	domain={config.domain}
-    	client_id={config.clientId}
-    	redirect_uri={window.location.origin}
+    	domain={process.env.REACT_APP_DOMAIN}
+    	client_id={process.env.REACT_APP_CLIENTID}
+		redirect_uri={window.location.origin}
+		audience={process.env.REACT_APP_AUDIENCE}
     	onRedirectCallback={onRedirectCallback}>
     	<App />
   	</Auth0Provider>,
