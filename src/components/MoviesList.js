@@ -33,7 +33,7 @@ const MoviesList = () => {
 		
 		async function fetchMovies()  {
 			setFetchingMovies(true)
-			const responseData = await apiMovies.getMovies(yearFilter, currentPage).then(response => response.data)
+			const responseData = await apiMovies.getMovies(yearFilter, currentPage)
 			const { total_pages, total_results, results } = responseData
 
 			setMovieList(results)
@@ -58,7 +58,7 @@ const MoviesList = () => {
 							{yearsOptions}
 						</select>
 					</div>
-					
+
 					<Pagination
 						currentPage={currentPage}
 						setCurrentPage={setCurrentPage}
