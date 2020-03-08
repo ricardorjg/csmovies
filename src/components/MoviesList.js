@@ -1,4 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import {
+	Switch,
+	Route,
+	Link,
+	useRouteMatch
+} from "react-router-dom"
+
+import PrivateRoute from './PrivateRoute'
+import MovieDetail from './MovieDetail'
 
 const fetchedMovieList = [
 	{"popularity":10.702,"vote_count":619,"video":false,"poster_path":"\/fIf4nLpWHK8BsbH76fPgMbLSjuU.jpg","id":113833,"adult":false,"backdrop_path":"\/i5r9aTDKo1y6paUX1PHsPhZstZk.jpg","original_language":"en","original_title":"The Normal Heart","genre_ids":[18],"title":"The Normal Heart","vote_average":7.9,"overview":"The story of the onset of the HIV-AIDS crisis in New York City in the early 1980s, taking an unflinching look at the nation's sexual politics as gay activists and their allies in the medical community fight to expose the truth about the burgeoning epidemic to a city and nation in denial.","release_date":"2014-05-25"},
@@ -12,6 +21,8 @@ const yearsOptions = new Array(10)
 							.map((v, i) => <option key={i} value={v}>{v}</option>)
 
 const MoviesList = () => {
+
+	let { path, url } = useRouteMatch();
 
 	const [movieList, setMovieList] = useState([])
 	const [fetchingMovies, setFetchingMovies] = useState(false)
@@ -29,22 +40,30 @@ const MoviesList = () => {
 
 	return (
 		<React.Fragment>
-			<div>
-				<select 
-					name="year_filter" 
-					id="year_filter"
-					value={yearFilter}
-					onChange={(e) => setYearFilter(e.target.value)}>
-					{yearsOptions}
-				</select>
-			</div>
-			{ fetchingMovies ? <div>Loading...</div> : (
-				<div>
-					{movieList.map((m, index) => (
-						<div key={index}>{m.original_title}</div>
-					))}
-				</div>
-			)}
+			<Switch>
+				<Route exact path={path}>
+					<div>
+						<select 
+							name="year_filter" 
+							id="year_filter"
+							value={yearFilter}
+							onChange={(e) => setYearFilter(e.target.value)}>
+							{yearsOptions}
+						</select>
+					</div>
+					{ fetchingMovies ? <div>Loading...</div> : (
+						<ul>
+							{movieList.map((m, index) => (
+								<li key={index}>
+									<Link to={`${url}/${m.id}`}>{m.original_title}</Link>
+								</li>
+							))}
+						</ul>
+					)}
+				</Route>
+				<PrivateRoute path={`${path}/:movieid`} component={MovieDetail} />
+			</Switch>
+			
 		</React.Fragment>
 	)
 }
