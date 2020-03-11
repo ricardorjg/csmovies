@@ -6,6 +6,8 @@ import {
 	useRouteMatch
 } from "react-router-dom"
 
+import { useAuth0 } from "../react-auth0-spa"
+
 import apiMovies from '../services/apiMovies'
 import PrivateRoute from './PrivateRoute'
 import MovieDetail from './MovieDetail'
@@ -19,6 +21,7 @@ const yearsOptions = new Array(10)
 const MoviesList = () => {
 
 	let { path, url } = useRouteMatch();
+	const { getTokenSilently } = useAuth0()
 
 	const [movieList, setMovieList] = useState([])
 	const [fetchingMovies, setFetchingMovies] = useState(false)
@@ -33,7 +36,9 @@ const MoviesList = () => {
 		
 		async function fetchMovies()  {
 			setFetchingMovies(true)
-			const responseData = await apiMovies.getMovies(yearFilter, currentPage)
+
+			const token = await getTokenSilently()
+			const responseData = await apiMovies.getMovies(yearFilter, currentPage, token)
 			const { total_pages, total_results, results } = responseData
 
 			setMovieList(results)

@@ -3,11 +3,15 @@ import {
 	useParams
 } from 'react-router-dom'
 
+import { useAuth0 } from "../react-auth0-spa"
+
 import apiMovies from '../services/apiMovies'
+import Ratings from './Ratings'
 
 const MovieDetail = () => {
 
-	let { movieid } = useParams();
+	let { movieid } = useParams()
+	const { getTokenSilently } = useAuth0()
 
 	const [fetchingDetails, setFechingDetails] = useState(false)
 	const [movieDetails, setMovieDetails] = useState({})
@@ -16,10 +20,15 @@ const MovieDetail = () => {
 
 		async function fetchMovieDetails() {
 			setFechingDetails(true)
-			const details = await apiMovies.getMovieDetails(movieid)
-			debugger
-			setMovieDetails(details)
-			setFechingDetails(false)
+			const token = await getTokenSilently()
+			try {
+				const details = await apiMovies.getMovieDetails(movieid, token)
+				setMovieDetails(details)
+			} catch (err) {
+				console.log(err)
+			} finally {
+				setFechingDetails(false)
+			}
 		}
 
 		fetchMovieDetails()
@@ -30,7 +39,9 @@ const MovieDetail = () => {
 	}
 
 	return <div>
-		{movieDetails.overview}
+		<h1>{ movieDetails.original_title }</h1>
+		{ movieDetails.overview }
+		{ movieDetails.id && <Ratings movieId={movieDetails.id} /> }
 	</div>
 }
 

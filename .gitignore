@@ -24,3 +24,4 @@ yarn-error.log*
 
 # oauth credentials
 src/auth_config.json
+.env
