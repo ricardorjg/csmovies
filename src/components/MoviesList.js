@@ -71,15 +71,18 @@ const MoviesList = () => {
 
 					{ fetchingMovies ? <div>Loading...</div> : (
 						<ul>
-							{movieList.map((m, index) => (
-								<li key={index}>
-									<Link to={`${url}/${m.id}`}>{m.original_title}</Link>
-								</li>
-							))}
+							{
+								movieList.map((m, index) => (
+										<li key={index}>
+											<Link to={`${m.id}`}>{m.original_title}</Link>
+										</li>
+									)
+								)
+							}
 						</ul>
 					)}
 				</Route>
-				<PrivateRoute path={`${path}/:movieid`} component={MovieDetail} />
+				<PrivateRoute path={`/:movieid`} component={MovieDetail} />
 			</Switch>
 			
 		</React.Fragment>

@@ -7,6 +7,8 @@ import history from "./utils/history"
 import Profile from "./components/Profile"
 import PrivateRoute from "./components/PrivateRoute"
 import ExternalApi from "./services/ExternalApi"
+
+import Main from './components/Main'
 import MoviesList from './components/MoviesList'
 
 const App = () => {
@@ -20,14 +22,11 @@ const App = () => {
   	return (
     	<div className="App">
       		<Router history={history}>
-        		<header>
-          			<NavBar />
-        		</header>
+				<Main />
         		<Switch>
           			<Route path="/" exact />
           			<PrivateRoute path="/profile" component={Profile} />
 					<PrivateRoute path="/external-api" component={ExternalApi} />
-					<PrivateRoute path="/movies-list" component={MoviesList} />
         		</Switch>
       		</Router>
     	</div>

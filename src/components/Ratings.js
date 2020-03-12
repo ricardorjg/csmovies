@@ -51,7 +51,7 @@ const Ratings = ({ movieId }) => {
 				userRating={userRating}
 				setUserRating={setUserRating} 
 				handleSubmit={handleSubmit} />
-			<Comments comments={movieRatings} />
+			<Comments comments={movieRatings.filter(mr => mr.email !== user.email)} />
 		</Fragment>
 	)
 }
