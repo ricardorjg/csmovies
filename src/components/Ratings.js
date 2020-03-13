@@ -36,7 +36,7 @@ const Ratings = ({ movieId }) => {
 			const savedUserRating = ratings.find(r => r.email === user.email)
 
 			if (savedUserRating) {
-				setUserRating(savedUserRating)
+				setUserRating({ userRating, ...savedUserRating })
 			}
 
 			setMovieRatings(ratings)

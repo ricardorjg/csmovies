@@ -3,6 +3,8 @@ import {
 	useParams
 } from 'react-router-dom'
 
+import { Image } from 'semantic-ui-react'
+
 import { useAuth0 } from "../react-auth0-spa"
 
 import apiMovies from '../services/apiMovies'
@@ -40,7 +42,12 @@ const MovieDetail = () => {
 
 	return <div>
 		<h1>{ movieDetails.original_title }</h1>
+		<Image 
+			src={movieDetails.poster_path ? `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}` : './image-not-available.jpg'} 
+			fluid />
 		{ movieDetails.overview }
+		<br />
+		<br />
 		{ movieDetails.id && <Ratings movieId={movieDetails.id} /> }
 	</div>
 }

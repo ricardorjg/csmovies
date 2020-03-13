@@ -34,7 +34,6 @@ const Main = () => {
 				</Container>
 			</Menu>
 			<Container text style={{ marginTop: '7em' }}>
-				<Header as='h1'>Movies</Header>
 				<MoviesList />
 			</Container>
   		</div>

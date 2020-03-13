@@ -7,6 +7,7 @@ import config from './utils/config'
 import history from "./utils/history"
 
 import 'semantic-ui-css/semantic.min.css'
+import './styles.css'
 
 // A function that routes the user to the right place
 // after login

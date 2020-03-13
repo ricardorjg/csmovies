@@ -8,10 +8,14 @@ import {
 
 import { useAuth0 } from "../react-auth0-spa"
 
+import { Grid, Header } from 'semantic-ui-react'
+
 import apiMovies from '../services/apiMovies'
 import PrivateRoute from './PrivateRoute'
 import MovieDetail from './MovieDetail'
-import Pagination from './Pagination'
+import PaginationMovies from './PaginationMovies'
+import MovieCard from './MovieCard'
+import VerticalGrid from './VerticalGrid'
 
 const yearsOptions = new Array(10)
 							.fill(new Date().getFullYear())
@@ -20,13 +24,18 @@ const yearsOptions = new Array(10)
 
 const MoviesList = () => {
 
-	let { path, url } = useRouteMatch();
+	let { path, url } = useRouteMatch()
+
 	const { getTokenSilently } = useAuth0()
 
 	const [movieList, setMovieList] = useState([])
+
 	const [fetchingMovies, setFetchingMovies] = useState(false)
+
 	const [yearFilter, setYearFilter] = useState(2011)
+
 	const [currentPage, setCurrentPage] = useState(1)
+
 	const [pagesInfo, setPagesInfo] = useState({
 		total_results: null,
 		total_pages: null
@@ -35,6 +44,7 @@ const MoviesList = () => {
 	useEffect(() => {
 		
 		async function fetchMovies()  {
+
 			setFetchingMovies(true)
 
 			const token = await getTokenSilently()
@@ -42,7 +52,10 @@ const MoviesList = () => {
 			const { total_pages, total_results, results } = responseData
 
 			setMovieList(results)
-			setPagesInfo({ total_results, total_pages })
+			setPagesInfo({ 
+				total_results: total_results, //Casted to string so the Pagination component of Semantic UI can work.
+				total_pages: total_pages
+			})
 			setFetchingMovies(false)
 		}
 
@@ -50,10 +63,18 @@ const MoviesList = () => {
 
 	}, [yearFilter, currentPage])
 
+	const movieCards = movieList.map((m, index) => (
+			<Grid.Column key={index}>
+				<MovieCard {...m} />
+			</Grid.Column>
+		)
+	)
+
 	return (
 		<React.Fragment>
 			<Switch>
 				<Route exact path={path}>
+					<Header as='h1'>Movies</Header>
 					<div>
 						<select 
 							name="year_filter" 
@@ -64,23 +85,21 @@ const MoviesList = () => {
 						</select>
 					</div>
 
-					<Pagination
+					<PaginationMovies 
 						currentPage={currentPage}
 						setCurrentPage={setCurrentPage}
 						{...pagesInfo} />
 
 					{ fetchingMovies ? <div>Loading...</div> : (
-						<ul>
-							{
-								movieList.map((m, index) => (
-										<li key={index}>
-											<Link to={`${m.id}`}>{m.original_title}</Link>
-										</li>
-									)
-								)
-							}
-						</ul>
+						<VerticalGrid>
+							{ movieCards }
+						</VerticalGrid>
 					)}
+
+					<PaginationMovies 
+						currentPage={currentPage}
+						setCurrentPage={setCurrentPage}
+						{...pagesInfo} />
 				</Route>
 				<PrivateRoute path={`/:movieid`} component={MovieDetail} />
 			</Switch>
