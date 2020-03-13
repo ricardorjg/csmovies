@@ -8,7 +8,7 @@ import {
 
 import { useAuth0 } from "../react-auth0-spa"
 
-import { Grid, Header } from 'semantic-ui-react'
+import { Grid, Header, Select } from 'semantic-ui-react'
 
 import apiMovies from '../services/apiMovies'
 import PrivateRoute from './PrivateRoute'
@@ -20,7 +20,9 @@ import VerticalGrid from './VerticalGrid'
 const yearsOptions = new Array(10)
 							.fill(new Date().getFullYear())
 							.map((v, i) => v - i)
-							.map((v, i) => <option key={i} value={v}>{v}</option>)
+							.map((v, i) => {
+								return {key: v, value: v, text: v}
+							})
 
 const MoviesList = () => {
 
@@ -74,21 +76,20 @@ const MoviesList = () => {
 		<React.Fragment>
 			<Switch>
 				<Route exact path={path}>
-					<Header as='h1'>Movies</Header>
-					<div>
-						<select 
-							name="year_filter" 
-							id="year_filter"
-							value={yearFilter}
-							onChange={(e) => setYearFilter(e.target.value)}>
-							{yearsOptions}
-						</select>
-					</div>
-
-					<PaginationMovies 
-						currentPage={currentPage}
-						setCurrentPage={setCurrentPage}
-						{...pagesInfo} />
+					<Grid columns={2}>
+						<Grid.Column>					
+							<Header as='h1'>Movies</Header>
+						</Grid.Column>
+						<Grid.Column textAlign={'right'}>					
+							<Select 
+								name="year_filter" 
+								id="year_filter"
+								placeholder='Select your country' 
+								options={yearsOptions}
+								value={yearFilter}
+								onChange={(e, { value }) => setYearFilter(value)}/>
+						</Grid.Column>
+					</Grid>
 
 					{ fetchingMovies ? <div>Loading...</div> : (
 						<VerticalGrid>
@@ -99,7 +100,8 @@ const MoviesList = () => {
 					<PaginationMovies 
 						currentPage={currentPage}
 						setCurrentPage={setCurrentPage}
-						{...pagesInfo} />
+						{...pagesInfo}
+						align={'center'} />
 				</Route>
 				<PrivateRoute path={`/:movieid`} component={MovieDetail} />
 			</Switch>
