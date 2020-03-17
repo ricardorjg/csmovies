@@ -3,8 +3,7 @@ import React from 'react'
 import { 
 	Button,
 	Form,
-	Grid,
-	Segment 
+	Grid
 } from 'semantic-ui-react'
 
 const Login = ({ loginWithRedirect }) => (

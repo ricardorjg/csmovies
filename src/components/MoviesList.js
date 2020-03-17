@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import {
 	Switch,
 	Route,
-	Link,
 	useRouteMatch
 } from "react-router-dom"
 
@@ -26,7 +25,7 @@ const yearsOptions = new Array(10)
 
 const MoviesList = () => {
 
-	let { path, url } = useRouteMatch()
+	let { path } = useRouteMatch()
 
 	const { getTokenSilently } = useAuth0()
 

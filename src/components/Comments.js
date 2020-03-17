@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react'
-import { Button, Comment, Form, Header, Container } from 'semantic-ui-react'
+import React from 'react'
+import { Comment, Header, Container } from 'semantic-ui-react'
 
 import CommentDetail from './CommentDetail'
 

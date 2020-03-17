@@ -1,6 +1,5 @@
 import React from "react"
 import { Router, Route, Switch } from "react-router-dom"
-import NavBar from "./components/NavBar"
 import { useAuth0 } from "./react-auth0-spa"
 
 import history from "./utils/history"
@@ -9,7 +8,6 @@ import PrivateRoute from "./components/PrivateRoute"
 import ExternalApi from "./services/ExternalApi"
 
 import Main from './components/Main'
-import MoviesList from './components/MoviesList'
 
 const App = () => {
 
