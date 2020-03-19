@@ -20,7 +20,7 @@ const Comments = ({ comments }) => {
 				</Container>
 			}
 			{
-				comments.length 
+				(comments.length || '')
 				&& 
 				comments.map((comment, index) => <CommentDetail key={index} index={index} {...comment} />)
 			}

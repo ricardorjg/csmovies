@@ -1,0 +1,1 @@
+export const CONF_MESSAGE = 'CONF_MESSAGE'

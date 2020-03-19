@@ -14,15 +14,13 @@ const UserRating = ({ userRating, setUserRating, handleSubmit }) => {
 			<Form onSubmit={handleSubmit}>
 				<Form.Field>
 					<label>Rating</label>
-					{
-						userRating.rating && 
-						<Rating 
-							maxRating={5}
-							icon='star'
-							size='massive'
-							defaultRating={userRating.rating}
-							onRate={(e, { rating, maxRating }) => setUserRating({...userRating, rating})} />
-					}
+					<Rating
+						as='a'
+						maxRating={5}
+						icon='star'
+						size='massive'
+						defaultRating={userRating.rating}
+						onRate={(e, { rating, maxRating }) => setUserRating({...userRating, rating})} />
 				</Form.Field>
 				<Form.Field>
 					<label>Your thoughts</label>

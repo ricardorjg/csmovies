@@ -3,11 +3,13 @@ import { useAuth0 } from "../react-auth0-spa"
 
 import {
 	Container,
-	Menu
+	Menu,
+	Segment
 } from 'semantic-ui-react'
 
 import Login from './Login'
 import MoviesList from './MoviesList'
+import Notification from './Notification'
 
 const Main = () => {
 
@@ -19,7 +21,7 @@ const Main = () => {
 
 	return (
 		<div>
-			<Menu fixed='top' inverted>
+			<Menu fixed='top' inverted color='teal'>
 				<Container>
 					{
 						isAuthenticated && 
@@ -32,8 +34,11 @@ const Main = () => {
 				</Container>
 			</Menu>
 			<Container text style={{ marginTop: '7em' }}>
+				<Notification />
 				<MoviesList />
+				<Notification />
 			</Container>
+			<Segment inverted color='teal' vertical style={{ margin: '3em 0em 0em', padding: '3em 0em' }}></Segment>
   		</div>
 	)
 }

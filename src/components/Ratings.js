@@ -1,49 +1,41 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, Fragment } from 'react'
 import { useAuth0 } from "../react-auth0-spa"
 
 import apiMovies from '../services/apiMovies'
 import UserRating from './UserRating'
 import Comments from './Comments'
 
-const Ratings = ({ movieId }) => {
+
+
+const Ratings = ({ movieId, movieRatings }) => {
 
 	const { _, user, getTokenSilently } = useAuth0()
 
-	const [movieRatings, setMovieRatings] = useState([])
-
-	const [userRating, setUserRating] = useState({
+	const defaultUserRating = {
+		rating: 0,
+		comment: '',
 		movie_id: movieId, 
-		email: user.email
-	})
+		email: user.email,
+	}
+
+	const initialUserRating = Object
+								.assign(
+									{},
+									movieRatings
+										.filter(mr => mr.email === user.email)
+										.map(({ rating, comment }) => { 
+											return {...defaultUserRating, rating: rating,  comment: comment} 
+										}).pop() || defaultUserRating
+								)
+
+	const [userRating, setUserRating] = useState(initialUserRating)
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		const token = await getTokenSilently()
-		try {
-			const savedUserRating = await apiMovies.saveRating(movieId, userRating, token)
-			setUserRating(savedUserRating)
-		} catch (err)  {
-			console.log(err)
-		}
+		const savedUserRating = await apiMovies.saveRating(movieId, userRating, token)
+		setUserRating(savedUserRating)
 	}
-
-	useEffect(() => {
-
-		async function fetchRatings()  {
-
-			const token = await getTokenSilently()
-			const ratings = await apiMovies.getRatings(movieId, token)
-			const savedUserRating = ratings.find(r => r.email === user.email)
-
-			if (savedUserRating) {
-				setUserRating({ userRating, ...savedUserRating })
-			}
-
-			setMovieRatings(ratings)
-		}
-
-		fetchRatings()
-	}, [])
 
 	return (
 		<Fragment>
