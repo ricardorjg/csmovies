@@ -1,10 +1,12 @@
-import React from "react"
+import React, { Fragment } from "react"
+import { Link } from "react-router-dom"
 import { useAuth0 } from "../react-auth0-spa"
 
 import {
 	Container,
 	Menu,
-	Segment
+	Segment,
+	Icon
 } from 'semantic-ui-react'
 
 import Login from './Login'
@@ -20,25 +22,56 @@ const Main = () => {
 	}
 
 	return (
-		<div>
+		<div className='Site'>
 			<Menu fixed='top' inverted color='teal'>
-				<Container>
 					{
-						isAuthenticated && 
-						<Menu.Item 
-							as='a'
-							onClick={() => logout()}>
-							Log out
-						</Menu.Item>
+						isAuthenticated &&
+						<Fragment>
+							<Menu.Item 
+								as='a'>
+								<Link to="/">
+									<Icon name='home' />
+									Home
+								</Link>
+							</Menu.Item>
+							<Menu.Menu position='right'>
+								<Menu.Item 
+									as='a'>
+									<Link to="/profile">
+										<Icon name='user' />
+										Profile
+									</Link>
+								</Menu.Item>
+								<Menu.Item 
+									as='a'
+									onClick={() => logout()}>
+										<Icon name='sign-out' />
+										Log out
+								</Menu.Item>
+								<Menu.Item 
+									as='a'>
+									<Link to="/about">
+										<Icon name='info' />
+										About
+									</Link>
+							</Menu.Item>
+							</Menu.Menu>
+						</Fragment>
 					}
-				</Container>
 			</Menu>
-			<Container text style={{ marginTop: '7em' }}>
+			<Container text style={{ marginTop: '7em' }} className='Site-content'>
 				<Notification />
 				<MoviesList />
 				<Notification />
 			</Container>
-			<Segment inverted color='teal' vertical style={{ margin: '3em 0em 0em', padding: '3em 0em' }}></Segment>
+			<Segment 
+				inverted
+				color='teal'
+				textAlign='center'
+				vertical={true}
+				style={{ margin: '3em 0em 0em', padding: '3em 0em' }}>
+					Developed by Ricardo Jose Gomez (ricardorjg@hotmail.com)
+			</Segment>
   		</div>
 	)
 }

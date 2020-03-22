@@ -2,10 +2,9 @@ import React from "react"
 import { Router, Route, Switch } from "react-router-dom"
 import { useAuth0 } from "./react-auth0-spa"
 
+import { Loader } from 'semantic-ui-react'
+
 import history from "./utils/history"
-import Profile from "./components/Profile"
-import PrivateRoute from "./components/PrivateRoute"
-import ExternalApi from "./services/ExternalApi"
 
 import Main from './components/Main'
 
@@ -14,7 +13,7 @@ const App = () => {
 	const { loading } = useAuth0()
 
   	if (loading) {
-    	return <div>Loading...</div>
+    	return <Loader active inline='centered' />
   	}
 
   	return (
@@ -23,8 +22,6 @@ const App = () => {
 				<Main />
         		<Switch>
           			<Route path="/" exact />
-          			<PrivateRoute path="/profile" component={Profile} />
-					<PrivateRoute path="/external-api" component={ExternalApi} />
         		</Switch>
       		</Router>
     	</div>

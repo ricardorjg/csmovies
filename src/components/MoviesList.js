@@ -7,14 +7,21 @@ import {
 
 import { useAuth0 } from "../react-auth0-spa"
 
-import { Grid, Header, Select } from 'semantic-ui-react'
+import { 
+	Grid, 
+	Loader, 
+	Header, 
+	Select
+} from 'semantic-ui-react'
 
-import apiMovies from '../services/apiMovies'
 import PrivateRoute from './PrivateRoute'
+import apiMovies from '../services/apiMovies'
 import MovieDetail from './MovieDetail'
 import PaginationMovies from './PaginationMovies'
 import MovieCard from './MovieCard'
 import VerticalGrid from './VerticalGrid'
+import Profile from "./Profile"
+import About from "./About"
 
 const yearsOptions = new Array(10)
 							.fill(new Date().getFullYear())
@@ -90,11 +97,13 @@ const MoviesList = () => {
 						</Grid.Column>
 					</Grid>
 
-					{ fetchingMovies ? <div>Loading...</div> : (
+					{ fetchingMovies ? 
+						<Loader active inline='centered' />
+						: 
 						<VerticalGrid>
 							{ movieCards }
 						</VerticalGrid>
-					)}
+					}
 
 					<PaginationMovies 
 						currentPage={currentPage}
@@ -102,6 +111,8 @@ const MoviesList = () => {
 						{...pagesInfo}
 						align={'center'} />
 				</Route>
+				<PrivateRoute path="/profile" component={Profile} exact />
+				<PrivateRoute path="/about" component={About} exact />
 				<PrivateRoute path={`/:movieid`} component={MovieDetail} />
 			</Switch>
 			
