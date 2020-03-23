@@ -11,7 +11,6 @@ import {
 
 import Login from './Login'
 import MoviesList from './MoviesList'
-import Notification from './Notification'
 
 const Main = () => {
 
@@ -60,9 +59,7 @@ const Main = () => {
 					}
 			</Menu>
 			<Container text style={{ marginTop: '7em' }} className='Site-content'>
-				<Notification />
 				<MoviesList />
-				<Notification />
 			</Container>
 			<Segment 
 				inverted

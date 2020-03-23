@@ -3,7 +3,7 @@ import {
 	useParams
 } from 'react-router-dom'
 
-import { Image } from 'semantic-ui-react'
+import { Image, Loader } from 'semantic-ui-react'
 
 import { useAuth0 } from "../react-auth0-spa"
 
@@ -37,7 +37,7 @@ const MovieDetail = () => {
 	}, [])
 
 	if (fetchingDetails) {
-		return <div>Fetching movie details...</div>
+		return <Loader active inline='centered' />
 	}
 
 	return <div>

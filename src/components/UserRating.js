@@ -7,6 +7,8 @@ import {
 	Rating
 } from 'semantic-ui-react'
 
+import Notification from './Notification'
+
 const UserRating = ({ userRating, setUserRating, handleSubmit }) => {
 
 	return (
@@ -30,6 +32,7 @@ const UserRating = ({ userRating, setUserRating, handleSubmit }) => {
 						onChange={e => setUserRating({...userRating, comment: e.target.value})} />
 				</Form.Field>
 				<Button type='submit'>Save Rating</Button>
+				<Notification />
 			</Form>
 		</Fragment>
 	)

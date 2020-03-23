@@ -22,6 +22,7 @@ import MovieCard from './MovieCard'
 import VerticalGrid from './VerticalGrid'
 import Profile from "./Profile"
 import About from "./About"
+import Notification from './Notification'
 
 const yearsOptions = new Array(10)
 							.fill(new Date().getFullYear())
@@ -82,6 +83,7 @@ const MoviesList = () => {
 		<React.Fragment>
 			<Switch>
 				<Route exact path={path}>
+					<Notification />
 					<Grid columns={2}>
 						<Grid.Column>					
 							<Header as='h1'>Movies</Header>
@@ -96,7 +98,7 @@ const MoviesList = () => {
 								onChange={(e, { value }) => setYearFilter(value)}/>
 						</Grid.Column>
 					</Grid>
-
+					<Notification />
 					{ fetchingMovies ? 
 						<Loader active inline='centered' />
 						: 
@@ -115,7 +117,6 @@ const MoviesList = () => {
 				<PrivateRoute path="/about" component={About} exact />
 				<PrivateRoute path={`/:movieid`} component={MovieDetail} />
 			</Switch>
-			
 		</React.Fragment>
 	)
 }
