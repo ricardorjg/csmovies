@@ -6,10 +6,9 @@ import UserRating from './UserRating'
 import Comments from './Comments'
 
 
-
 const Ratings = ({ movieId, movieRatings }) => {
 
-	const { _, user, getTokenSilently } = useAuth0()
+	const { user, getTokenSilently } = useAuth0()
 
 	const defaultUserRating = {
 		rating: 0,
@@ -18,6 +17,8 @@ const Ratings = ({ movieId, movieRatings }) => {
 		email: user.email,
 	}
 
+	//build the userRating obj from the data in movieRatings
+	//and user
 	const initialUserRating = Object
 								.assign(
 									{},
