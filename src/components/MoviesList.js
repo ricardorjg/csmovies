@@ -98,7 +98,6 @@ const MoviesList = () => {
 								onChange={(e, { value }) => setYearFilter(value)}/>
 						</Grid.Column>
 					</Grid>
-					<Notification />
 					{ fetchingMovies ? 
 						<Loader active inline='centered' />
 						: 

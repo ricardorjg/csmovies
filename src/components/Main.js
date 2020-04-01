@@ -26,29 +26,25 @@ const Main = () => {
 					{
 						isAuthenticated &&
 						<Fragment>
-							<Menu.Item 
-								as='a'>
+							<Menu.Item>
 								<Link to="/">
 									<Icon name='home' />
 									Home
 								</Link>
 							</Menu.Item>
 							<Menu.Menu position='right'>
-								<Menu.Item 
-									as='a'>
+								<Menu.Item>
 									<Link to="/profile">
 										<Icon name='user' />
 										Profile
 									</Link>
 								</Menu.Item>
-								<Menu.Item 
-									as='a'
+								<Menu.Item
 									onClick={() => logout()}>
 										<Icon name='sign-out' />
 										Log out
 								</Menu.Item>
-								<Menu.Item 
-									as='a'>
+								<Menu.Item>
 									<Link to="/about">
 										<Icon name='info' />
 										About

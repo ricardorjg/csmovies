@@ -6,8 +6,6 @@ import { hideMessage } from '../state/actionCreators'
 
 const Notification = ({ show, message, color, hideMessage }) => {
 
-	console.log(message)
-
 	if (show) {
 
 		setTimeout(() => hideMessage(), 5000)
